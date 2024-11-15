@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الجدول الدراسي</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>الجدول الدراسي</h1>
+    <table>
+        <tr>
+            <th>اليوم</th>
+            <th>المادة</th>
+            <th>الوقت</th>
+        </tr>
+        <% Object.keys(schedule).forEach(day => { %>
+            <% Object.keys(schedule[day]).forEach(subject => { %>
+                <tr>
+                    <td><%= day %></td>
+                    <td><%= subject %></td>
+                    <td><%= schedule[day][subject] %></td>
+                </tr>
+            <% }) %>
+        <% }) %>
+    </table>
+</body>
+</html>

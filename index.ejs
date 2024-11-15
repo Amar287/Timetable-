@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعداد الجدول الدراسي</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>إعداد الجدول الدراسي</h1>
+        <form action="/schedule" method="POST">
+            <!-- اختيار الأيام -->
+            <label>اختر الأيام:</label><br>
+            <div class="days-checkbox">
+                <% ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].forEach(day => { %>
+                    <label>
+                        <input type="checkbox" name="days" value="<%= day %>"> <%= day %>
+                    </label><br>
+                <% }) %>
+            </div>
+
+            <!-- اختيار المواد -->
+            <label>اختر المواد:</label><br>
+            <select name="subjects" multiple required>
+                <option value="Arabic">اللغة العربية</option>
+                <option value="English">اللغة الإنجليزية</option>
+                <option value="Math">الرياضيات</option>
+                <option value="Physics">الفيزياء</option>
+                <option value="Chemistry">الكيمياء</option>
+                <option value="Biology">الأحياء</option>
+                <option value="French">الفرنسية</option>
+            </select><br>
+
+            <!-- الأوقات المشغولة -->
+            <label>الأوقات المشغولة:</label><br>
+            <% ['Saturday','Sunday','Monday', 'Tuesday', 'Wednesday','Theusday', 'Friday'].forEach(day => { %>
+            <div class="busy-time">
+                <label><%= day %>:</label>
+                <select name="busyTimes[<%= day %>][start]">
+                    <% timeOptions.forEach(time => { %>
+                        <option value="<%= time %>"><%= time %></option>
+                    <% }) %>
+                </select>
+                <span>إلى</span>
+                <select name="busyTimes[<%= day %>][end]">
+                    <% timeOptions.forEach(time => { %>
+                        <option value="<%= time %>"><%= time %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <% }) %>
+
+            <!-- مدة الدراسة لكل مادة -->
+            <label>مدة الدراسة لكل مادة (بالدقائق):</label>
+            <input type="number" name="studyDuration" placeholder="90" required><br>
+
+            <button type="submit">إنشاء الجدول</button>
+        </form>
+    </div>
+</body>
+</html>
